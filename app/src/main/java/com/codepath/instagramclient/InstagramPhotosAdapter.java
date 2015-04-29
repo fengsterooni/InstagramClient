@@ -36,12 +36,13 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         TextView tvComments = (TextView) convertView.findViewById(R.id.tvComments);
         TextView tvTime = (TextView) convertView.findViewById(R.id.tvTime);
 
-        tvCaption.setText(photo.caption);
+        if (photo.caption != null)
+            tvCaption.setText(Html.fromHtml(photo.caption));
 
         // Clear out the imageview
         ivPhoto.setImageResource(0);
 
-        tvLikes.setText("" + photo.likesCount);
+        tvLikes.setText("" + photo.likesCount + " likes");
         tvUsername.setText(photo.userName);
         Picasso.with(getContext()).load(photo.imageUrl).into(ivPhoto);
         Picasso.with(getContext()).load(photo.profilePic).into(ivProfile);
@@ -55,14 +56,14 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         // Setup and display time
         String timeString = DateUtils.getRelativeTimeSpanString(photo.time * 1000,
                 System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
-        //Log.i("INFO", timeString);
+        // Log.i("INFO", timeString);
         int index;
         int from = 0;
         if (timeString.startsWith("in"))
             from = 2;
         index = timeString.indexOf(' ', from);
         String shortTimeString = timeString.substring(0, from + index+2);
-        //Log.i("INFO", shortTimeString);
+        // Log.i("INFO", shortTimeString);
         // tvTime.setCompoundDrawablesWithIntrinsicBounds(R.drawable.time, 0, 0, 0);
         tvTime.setText(shortTimeString);
 

@@ -68,7 +68,11 @@ public class PhotosActivity extends ActionBarActivity {
                         InstagramPhoto photo = new InstagramPhoto();
                         photo.userName = photoJSON.getJSONObject("user").getString("username");
                         photo.profilePic = photoJSON.getJSONObject("user").getString("profile_picture");
-                        photo.caption = photoJSON.getJSONObject("caption").getString("text");
+
+                        if (!photoJSON.isNull("caption"))
+                            photo.caption = "<b><font color='#3F729B'>" + photo.userName + "</font></b> "
+                                    + photoJSON.getJSONObject("caption").getString("text");
+
                         photo.imageUrl = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getString("url");
                         photo.imageHeight = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getInt("height");
                         photo.likesCount = photoJSON.getJSONObject("likes").getInt("count");
@@ -80,7 +84,7 @@ public class PhotosActivity extends ActionBarActivity {
 
                         for (int j = 0; j < count; j++) {
                             JSONObject comment = commentsJSON.getJSONObject(j);
-                            photo.comments[j] = "<b>" + comment.getJSONObject("from").getString("username") + "</b> "
+                            photo.comments[j] = "<b><font color='#3F729B'>" + comment.getJSONObject("from").getString("username") + "</font></b> "
                                     + comment.getString("text") + "<br>";
                         }
 
@@ -94,7 +98,7 @@ public class PhotosActivity extends ActionBarActivity {
                 }
 
                 aPhotos.notifyDataSetChanged();
-                
+
                 swipeContainer.setRefreshing(false);
             }
 
