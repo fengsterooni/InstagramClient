@@ -68,6 +68,7 @@
         android:id="@+id/tvCaption"
         android:layout_below="@id/tvLikes"
         android:layout_alignLeft="@id/tvLikes"
+        android:layout_alignRight="@id/tvLikes"
         android:textSize="16sp"
         android:minLines="3"
         android:ellipsize="end" />
@@ -77,6 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/component_margin"
         android:layout_alignLeft="@id/tvLikes"
+        android:layout_alignRight="@id/tvLikes"
         android:id="@+id/tvComments"
         android:layout_below="@id/tvCaption"
         />
