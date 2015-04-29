@@ -1,6 +1,7 @@
 package com.codepath.instagramclient;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ public class PhotosActivity extends ActionBarActivity {
     public static final String CLIENT_ID = "4f491690c6444624876af2f639876a8a";
     private ArrayList<InstagramPhoto> photos;
     private  InstagramPhotosAdapter aPhotos;
+    private SwipeRefreshLayout swipeContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,20 @@ public class PhotosActivity extends ActionBarActivity {
 
         ListView lvPhotos = (ListView) findViewById(R.id.lvPhotos);
         lvPhotos.setAdapter(aPhotos);
+
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchPopularPhotos();
+            }
+        });
+
+        swipeContainer.setColorScheme(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
         fetchPopularPhotos();
     }
 
@@ -78,6 +94,8 @@ public class PhotosActivity extends ActionBarActivity {
                 }
 
                 aPhotos.notifyDataSetChanged();
+                
+                swipeContainer.setRefreshing(false);
             }
 
             @Override

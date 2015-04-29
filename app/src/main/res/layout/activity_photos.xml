@@ -1,7 +1,8 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/swipeContainer"
     tools:context=".PhotosActivity">
 
     <ListView
@@ -15,4 +16,5 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         />
-</RelativeLayout>
+
+</android.support.v4.widget.SwipeRefreshLayout>
