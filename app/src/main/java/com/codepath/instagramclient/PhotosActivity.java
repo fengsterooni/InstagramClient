@@ -28,6 +28,8 @@ public class PhotosActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photos);
+
+        // Add icon to ActionBar
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
 
@@ -100,7 +102,6 @@ public class PhotosActivity extends ActionBarActivity {
                 }
 
                 aPhotos.notifyDataSetChanged();
-
                 swipeContainer.setRefreshing(false);
             }
 

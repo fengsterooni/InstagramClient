@@ -21,37 +21,43 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
+        ViewHolder viewHolder;
         InstagramPhoto photo = getItem(position);
 
         if (convertView == null) {
+            viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_photo, parent, false);
+
+            viewHolder.caption = (TextView) convertView.findViewById(R.id.tvCaption);
+            viewHolder.image = (ImageView) convertView.findViewById(R.id.ivPhoto);
+            viewHolder.user = (TextView) convertView.findViewById(R.id.tvUsername);
+            viewHolder.like = (TextView) convertView.findViewById(R.id.tvLikes);
+            viewHolder.profile = (ImageView) convertView.findViewById(R.id.ivProfile);
+            viewHolder.comment = (TextView) convertView.findViewById(R.id.tvComments);
+            viewHolder.time = (TextView) convertView.findViewById(R.id.tvTime);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        TextView tvCaption = (TextView) convertView.findViewById(R.id.tvCaption);
-        ImageView ivPhoto = (ImageView) convertView.findViewById(R.id.ivPhoto);
-        TextView tvUsername = (TextView) convertView.findViewById(R.id.tvUsername);
-        TextView tvLikes = (TextView) convertView.findViewById(R.id.tvLikes);
-        ImageView ivProfile = (ImageView) convertView.findViewById(R.id.ivProfile);
-        TextView tvComments = (TextView) convertView.findViewById(R.id.tvComments);
-        TextView tvTime = (TextView) convertView.findViewById(R.id.tvTime);
+
 
         if (photo.caption != null)
-            tvCaption.setText(Html.fromHtml(photo.caption));
+            viewHolder.caption.setText(Html.fromHtml(photo.caption));
 
         // Clear out the imageview
-        ivPhoto.setImageResource(0);
+        viewHolder.image.setImageResource(0);
 
-        tvLikes.setText("" + photo.likesCount + " likes");
-        tvUsername.setText(photo.userName);
-        Picasso.with(getContext()).load(photo.imageUrl).into(ivPhoto);
-        Picasso.with(getContext()).load(photo.profilePic).into(ivProfile);
+        viewHolder.like.setText("" + photo.likesCount + " likes");
+        viewHolder.user.setText(photo.userName);
+        Picasso.with(getContext()).load(photo.imageUrl).into(viewHolder.image);
+        Picasso.with(getContext()).load(photo.profilePic).into(viewHolder.profile);
 
         int count = photo.comments.length;
         if (count > 1)
-            tvComments.setText(Html.fromHtml(photo.comments[count - 1] + "\n" + photo.comments[count - 2]));
+            viewHolder.comment.setText(Html.fromHtml(photo.comments[count - 1] + "\n" + photo.comments[count - 2]));
         else if (count == 1)
-            tvComments.setText(Html.fromHtml(photo.comments[count-1]));
+            viewHolder.comment.setText(Html.fromHtml(photo.comments[count-1]));
 
         // Setup and display time
         String timeString = DateUtils.getRelativeTimeSpanString(photo.time * 1000,
@@ -65,8 +71,18 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         String shortTimeString = timeString.substring(0, from + index+2);
         // Log.i("INFO", shortTimeString);
         // tvTime.setCompoundDrawablesWithIntrinsicBounds(R.drawable.time, 0, 0, 0);
-        tvTime.setText(shortTimeString);
+        viewHolder.time.setText(shortTimeString);
 
         return convertView;
+    }
+
+    private static class ViewHolder {
+        ImageView profile;
+        TextView caption;
+        TextView user;
+        TextView time;
+        ImageView image;
+        TextView like;
+        TextView comment;
     }
 }
