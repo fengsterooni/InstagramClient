@@ -1,4 +1,4 @@
-package com.codepath.instagramclient;
+package com.codepath.instagramclient.adapters;
 
 import android.content.Context;
 import android.text.Html;
@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.codepath.instagramclient.R;
+import com.codepath.instagramclient.models.InstagramPhoto;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -40,8 +42,6 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-
-
         if (photo.caption != null)
             viewHolder.caption.setText(Html.fromHtml(photo.caption));
 
@@ -63,12 +63,8 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         String timeString = DateUtils.getRelativeTimeSpanString(photo.time * 1000,
                 System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
         // Log.i("INFO", timeString);
-        int index;
-        int from = 0;
-        if (timeString.startsWith("in"))
-            from = 2;
-        index = timeString.indexOf(' ', from);
-        String shortTimeString = timeString.substring(0, from + index+2);
+        int index = timeString.indexOf(' ');
+        String shortTimeString = timeString.substring(0, index+2);
         // Log.i("INFO", shortTimeString);
         // tvTime.setCompoundDrawablesWithIntrinsicBounds(R.drawable.time, 0, 0, 0);
         viewHolder.time.setText(shortTimeString);

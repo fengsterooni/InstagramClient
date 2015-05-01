@@ -1,4 +1,4 @@
-package com.codepath.instagramclient;
+package com.codepath.instagramclient.activities;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -7,6 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+import com.codepath.instagramclient.models.InstagramPhoto;
+import com.codepath.instagramclient.adapters.InstagramPhotosAdapter;
+import com.codepath.instagramclient.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -21,7 +24,7 @@ public class PhotosActivity extends ActionBarActivity {
 
     public static final String CLIENT_ID = "4f491690c6444624876af2f639876a8a";
     private ArrayList<InstagramPhoto> photos;
-    private  InstagramPhotosAdapter aPhotos;
+    private InstagramPhotosAdapter aPhotos;
     private SwipeRefreshLayout swipeContainer;
 
     @Override
@@ -67,41 +70,11 @@ public class PhotosActivity extends ActionBarActivity {
 
                 try {
                     photosJSON = response.getJSONArray("data");
-                    for (int i = 0; i < photosJSON.length(); i++) {
-                        JSONObject photoJSON = photosJSON.getJSONObject(i);
-                        InstagramPhoto photo = new InstagramPhoto();
-                        photo.userName = photoJSON.getJSONObject("user").getString("username");
-                        photo.profilePic = photoJSON.getJSONObject("user").getString("profile_picture");
-
-                        if (!photoJSON.isNull("caption"))
-                            photo.caption = "<b><font color='#3F729B'>" + photo.userName + "</font></b> "
-                                    + photoJSON.getJSONObject("caption").getString("text");
-
-                        photo.imageUrl = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getString("url");
-                        photo.imageHeight = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getInt("height");
-                        photo.likesCount = photoJSON.getJSONObject("likes").getInt("count");
-
-                        JSONArray commentsJSON = photoJSON.getJSONObject("comments").getJSONArray("data");
-                        int count = commentsJSON.length();
-
-                        photo.comments = new String[count];
-
-                        for (int j = 0; j < count; j++) {
-                            JSONObject comment = commentsJSON.getJSONObject(j);
-                            photo.comments[j] = "<b><font color='#3F729B'>" + comment.getJSONObject("from").getString("username") + "</font></b> "
-                                    + comment.getString("text") + "<br>";
-                        }
-
-                        photo.time = photoJSON.getLong("created_time");
-
-                        photos.add(photo);
-                    }
-
+                    photos.clear();
+                    aPhotos.addAll(InstagramPhoto.fromJSONArray(photosJSON));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-                aPhotos.notifyDataSetChanged();
                 swipeContainer.setRefreshing(false);
             }
 
