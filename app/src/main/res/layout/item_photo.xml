@@ -21,7 +21,7 @@
         android:layout_toRightOf="@+id/ivProfile"
         android:gravity="center_vertical"
         android:textColor="@color/instagram"
-        android:textSize="16dp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tvTime"
@@ -31,16 +31,18 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_margin="@dimen/component_margin"
-        android:drawableLeft="@drawable/time"
         android:drawablePadding="@dimen/component_padding"
+        android:drawableLeft="@drawable/time"
+        android:drawableStart="@drawable/time"
         android:gravity="center_vertical"
         android:textColor="@color/gray"
-        android:textSize="16dp" />
+        android:textSize="16sp" />
 
     <ImageView
         android:id="@+id/ivPhoto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/instagram_photo_description"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@id/ivProfile"
@@ -54,8 +56,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ivPhoto"
         android:layout_margin="@dimen/activity_horizontal_margin"
-        android:drawableLeft="@drawable/likes"
         android:drawablePadding="@dimen/component_padding"
+        android:drawableLeft="@drawable/likes"
+        android:drawableStart="@drawable/likes"
         android:textColor="@color/instagram"
         android:textSize="16sp" />
 
@@ -64,7 +67,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/tvLikes"
+        android:layout_alignStart="@id/tvLikes"
         android:layout_alignRight="@id/tvLikes"
+        android:layout_alignEnd="@id/tvLikes"
         android:layout_below="@id/tvLikes"
         android:ellipsize="end"
         android:minLines="3"
@@ -75,7 +80,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/tvLikes"
+        android:layout_alignStart="@id/tvLikes"
         android:layout_alignRight="@id/tvLikes"
+        android:layout_alignEnd="@id/tvLikes"
         android:layout_below="@id/tvCaption"
         android:textColor="@color/gray"
         android:layout_marginTop="@dimen/component_margin" />
@@ -85,7 +92,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/tvLikes"
+        android:layout_alignStart="@id/tvLikes"
         android:layout_alignRight="@id/tvLikes"
+        android:layout_alignEnd="@id/tvLikes"
         android:layout_below="@id/tvViewComments"
         android:layout_marginTop="@dimen/component_margin" />
 

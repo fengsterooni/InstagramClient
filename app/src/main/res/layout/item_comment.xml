@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:minHeight="64dp"
     android:orientation="vertical">
 
     <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -9,28 +10,34 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_margin="@dimen/component_margin"
-        app:riv_corner_radius="24dp"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_launcher"
+        app:riv_corner_radius="24dp" />
 
     <TextView
         android:id="@+id/tvEachComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/ivComProfile"
+        android:layout_marginEnd="@dimen/component_margin"
+        android:layout_marginRight="@dimen/component_margin"
+        android:layout_toEndOf="@+id/ivComProfile"
         android:layout_toRightOf="@+id/ivComProfile" />
 
     <TextView
         android:id="@+id/tvComTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/tvEachComment"
         android:layout_alignLeft="@id/tvEachComment"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignStart="@id/tvEachComment"
+        android:layout_below="@id/tvEachComment"
+        android:layout_marginBottom="@dimen/component_margin"
+        android:layout_marginEnd="@dimen/component_margin"
+        android:layout_marginRight="@dimen/component_margin"
         android:textColor="@color/gray"
-        android:textSize="16dp" />
+        android:textSize="12sp" />
 
 </RelativeLayout>

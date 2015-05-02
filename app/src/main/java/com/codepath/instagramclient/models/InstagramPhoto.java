@@ -17,6 +17,7 @@ public class InstagramPhoto implements Serializable {
     public String profilePic;
     public long time;
     public int numComments;
+    public String id;
     public ArrayList<InstagramComment> comments;
 
     public ArrayList<InstagramComment> getComments() {
@@ -25,6 +26,7 @@ public class InstagramPhoto implements Serializable {
 
     public InstagramPhoto(JSONObject json) {
         try {
+            this.id = json.getString("id");
             this.userName = json.getJSONObject("user").getString("username");
             this.profilePic = json.getJSONObject("user").getString("profile_picture");
 
