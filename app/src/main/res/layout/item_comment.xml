@@ -17,11 +17,9 @@
         android:id="@+id/tvEachComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_alignTop="@id/ivComProfile"
-        android:layout_marginEnd="@dimen/component_margin"
-        android:layout_marginRight="@dimen/component_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_toEndOf="@+id/ivComProfile"
         android:layout_toRightOf="@+id/ivComProfile" />
 
@@ -30,14 +28,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/tvEachComment"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_alignStart="@id/tvEachComment"
+        android:layout_alignRight="@id/tvEachComment"
+        android:layout_alignEnd="@id/tvEachComment"
         android:layout_below="@id/tvEachComment"
         android:layout_marginBottom="@dimen/component_margin"
-        android:layout_marginEnd="@dimen/component_margin"
-        android:layout_marginRight="@dimen/component_margin"
         android:textColor="@color/gray"
         android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvComTime"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

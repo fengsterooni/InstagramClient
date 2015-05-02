@@ -20,19 +20,15 @@ public class InstagramPhoto implements Serializable {
     public String id;
     public ArrayList<InstagramComment> comments;
 
-    public ArrayList<InstagramComment> getComments() {
-        return comments;
-    }
-
     public InstagramPhoto(JSONObject json) {
         try {
             this.id = json.getString("id");
             this.userName = json.getJSONObject("user").getString("username");
             this.profilePic = json.getJSONObject("user").getString("profile_picture");
 
+            this.caption = "<b><font color='#3F729B'>" + this.userName + "</font></b> ";
             if (!json.isNull("caption"))
-                this.caption = "<b><font color='#3F729B'>" + this.userName + "</font></b> "
-                        + json.getJSONObject("caption").getString("text");
+                this.caption += json.getJSONObject("caption").getString("text");
 
             this.imageUrl = json.getJSONObject("images").getJSONObject("standard_resolution").getString("url");
             this.imageHeight = json.getJSONObject("images").getJSONObject("standard_resolution").getInt("height");

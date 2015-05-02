@@ -98,4 +98,13 @@
         android:layout_below="@id/tvViewComments"
         android:layout_marginTop="@dimen/component_margin" />
 
+    <TextView
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvComments"
+        android:layout_marginBottom="@dimen/component_margin"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="@dimen/abc_text_size_caption_material" />
+
 </RelativeLayout>

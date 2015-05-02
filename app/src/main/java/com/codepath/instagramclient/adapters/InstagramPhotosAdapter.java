@@ -62,6 +62,9 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), PhotoComments.class);
                 intent.putExtra("photoId", photo.id);
+                intent.putExtra("profile", photo.profilePic);
+                intent.putExtra("caption", photo.caption);
+                intent.putExtra("time", photo.time);
                 getContext().startActivity(intent);
             }
         });

@@ -1,16 +1,22 @@
 package com.codepath.instagramclient.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Html;
+import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.codepath.instagramclient.R;
 import com.codepath.instagramclient.adapters.InstagramCommentAdapter;
 import com.codepath.instagramclient.models.InstagramComment;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.squareup.picasso.Picasso;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -27,7 +33,28 @@ public class PhotoComments extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_comments);
-        String photo_id = getIntent().getStringExtra("photoId");
+
+        Intent i = getIntent();
+        String photo_id = i.getStringExtra("photoId");
+        String profile = i.getStringExtra("profile");
+        String caption = i.getStringExtra("caption");
+        long time = i.getLongExtra("time", 0);
+
+        if (caption != null) {
+            TextView tvCaption = (TextView) findViewById(R.id.tvCaption);
+            tvCaption.setText(Html.fromHtml(caption));
+        }
+
+        ImageView ivProfile = (ImageView) findViewById(R.id.ivProfile);
+        Picasso.with(this).load(profile).into(ivProfile);
+
+        TextView tvTime = (TextView) findViewById(R.id.tvTime);
+
+        if (time != 0) {
+            String timeString = DateUtils.getRelativeTimeSpanString(time * 1000,
+                    System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
+            tvTime.setText(timeString);
+        }
 
         comments = new ArrayList<>();
         aComments = new InstagramCommentAdapter(this, comments);
