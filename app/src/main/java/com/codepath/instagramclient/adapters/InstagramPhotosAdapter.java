@@ -1,6 +1,7 @@
 package com.codepath.instagramclient.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Html;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.instagramclient.R;
+import com.codepath.instagramclient.activities.PhotoComments;
 import com.codepath.instagramclient.models.InstagramPhoto;
 import com.squareup.picasso.Picasso;
 
@@ -24,7 +26,7 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
-        InstagramPhoto photo = getItem(position);
+        final InstagramPhoto photo = getItem(position);
 
         if (convertView == null) {
             viewHolder = new ViewHolder();
@@ -35,6 +37,7 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
             viewHolder.user = (TextView) convertView.findViewById(R.id.tvUsername);
             viewHolder.like = (TextView) convertView.findViewById(R.id.tvLikes);
             viewHolder.profile = (ImageView) convertView.findViewById(R.id.ivProfile);
+            viewHolder.comments = (TextView) convertView.findViewById(R.id.tvViewComments);
             viewHolder.comment = (TextView) convertView.findViewById(R.id.tvComments);
             viewHolder.time = (TextView) convertView.findViewById(R.id.tvTime);
             convertView.setTag(viewHolder);
@@ -53,11 +56,21 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         Picasso.with(getContext()).load(photo.imageUrl).into(viewHolder.image);
         Picasso.with(getContext()).load(photo.profilePic).into(viewHolder.profile);
 
-        int count = photo.comments.length;
+        viewHolder.comments.setText("view all " + photo.numComments + " comments");
+        viewHolder.comments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), PhotoComments.class);
+                intent.putExtra("photo", photo);
+                getContext().startActivity(intent);
+            }
+        });
+
+        int count = photo.comments.size();
         if (count > 1)
-            viewHolder.comment.setText(Html.fromHtml(photo.comments[count - 1] + "\n" + photo.comments[count - 2]));
+            viewHolder.comment.setText(Html.fromHtml(photo.comments.get(count - 1).comment + "<br>" + photo.comments.get(count - 2).comment));
         else if (count == 1)
-            viewHolder.comment.setText(Html.fromHtml(photo.comments[count-1]));
+            viewHolder.comment.setText(Html.fromHtml(photo.comments.get(count-1).comment));
 
         // Setup and display time
         String timeString = DateUtils.getRelativeTimeSpanString(photo.time * 1000,
@@ -66,7 +79,6 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         int index = timeString.indexOf(' ');
         String shortTimeString = timeString.substring(0, index+2);
         // Log.i("INFO", shortTimeString);
-        // tvTime.setCompoundDrawablesWithIntrinsicBounds(R.drawable.time, 0, 0, 0);
         viewHolder.time.setText(shortTimeString);
 
         return convertView;
@@ -79,6 +91,7 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         TextView time;
         ImageView image;
         TextView like;
+        TextView comments;
         TextView comment;
     }
 }

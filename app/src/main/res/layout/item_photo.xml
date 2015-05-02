@@ -4,83 +4,89 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.makeramen.roundedimageview.RoundedImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ivProfile"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:id="@+id/ivProfile"
         android:layout_margin="@dimen/component_margin"
-        app:riv_corner_radius="24dp"
-        />
+        app:riv_corner_radius="24dp" />
 
     <TextView
+        android:id="@+id/tvUsername"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:id="@+id/tvUsername"
         android:layout_above="@+id/ivPhoto"
         android:layout_margin="@dimen/component_margin"
-        android:layout_toRightOf="@+id/ivProfile"
         android:layout_toEndOf="@+id/ivProfile"
-        android:textColor="@color/instagram"
+        android:layout_toRightOf="@+id/ivProfile"
         android:gravity="center_vertical"
-        android:textSize="16dp"
-        />
+        android:textColor="@color/instagram"
+        android:textSize="16dp" />
 
     <TextView
+        android:id="@+id/tvTime"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:id="@+id/tvTime"
         android:layout_above="@id/ivPhoto"
-        android:layout_margin="@dimen/component_margin"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:textColor="@color/gray"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/component_margin"
         android:drawableLeft="@drawable/time"
         android:drawablePadding="@dimen/component_padding"
         android:gravity="center_vertical"
+        android:textColor="@color/gray"
         android:textSize="16dp" />
 
     <ImageView
         android:id="@+id/ivPhoto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:adjustViewBounds="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@id/ivProfile"
-        android:scaleType="fitXY"
-        android:minHeight="50dp" />
+        android:adjustViewBounds="true"
+        android:minHeight="50dp"
+        android:scaleType="fitXY" />
 
     <TextView
+        android:id="@+id/tvLikes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_horizontal_margin"
         android:layout_below="@+id/ivPhoto"
-        android:textSize="16sp"
-        android:id="@+id/tvLikes"
+        android:layout_margin="@dimen/activity_horizontal_margin"
         android:drawableLeft="@drawable/likes"
         android:drawablePadding="@dimen/component_padding"
-        android:textColor="@color/instagram"/>
+        android:textColor="@color/instagram"
+        android:textSize="16sp" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/tvCaption"
-        android:layout_below="@id/tvLikes"
-        android:layout_alignLeft="@id/tvLikes"
-        android:layout_alignRight="@id/tvLikes"
-        android:textSize="16sp"
-        android:minLines="3"
-        android:ellipsize="end" />
-
-    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/component_margin"
         android:layout_alignLeft="@id/tvLikes"
         android:layout_alignRight="@id/tvLikes"
-        android:id="@+id/tvComments"
+        android:layout_below="@id/tvLikes"
+        android:ellipsize="end"
+        android:minLines="3"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvViewComments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tvLikes"
+        android:layout_alignRight="@id/tvLikes"
         android:layout_below="@id/tvCaption"
-        />
+        android:textColor="@color/gray"
+        android:layout_marginTop="@dimen/component_margin" />
+
+    <TextView
+        android:id="@+id/tvComments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tvLikes"
+        android:layout_alignRight="@id/tvLikes"
+        android:layout_below="@id/tvViewComments"
+        android:layout_marginTop="@dimen/component_margin" />
 
 </RelativeLayout>

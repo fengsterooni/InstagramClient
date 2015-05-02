@@ -4,17 +4,24 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class InstagramPhoto {
+public class InstagramPhoto implements Serializable {
+    private static final long serialVersionUID = 7302706685174970863L;
     public String userName;
     public String caption;
     public String imageUrl;
     public int imageHeight;
     public int likesCount;
     public String profilePic;
-    public String[] comments;
     public long time;
+    public int numComments;
+    public ArrayList<InstagramComment> comments;
+
+    public ArrayList<InstagramComment> getComments() {
+        return comments;
+    }
 
     public InstagramPhoto(JSONObject json) {
         try {
@@ -29,15 +36,11 @@ public class InstagramPhoto {
             this.imageHeight = json.getJSONObject("images").getJSONObject("standard_resolution").getInt("height");
             this.likesCount = json.getJSONObject("likes").getInt("count");
 
+            this.numComments = json.getJSONObject("comments").getInt("count");
             JSONArray commentsJSON = json.getJSONObject("comments").getJSONArray("data");
-            int count = commentsJSON.length();
-            this.comments = new String[count];
-            for (int j = 0; j < count; j++) {
-                JSONObject comment = commentsJSON.getJSONObject(j);
-                this.comments[j] = "<b><font color='#3F729B'>"
-                        + comment.getJSONObject("from").getString("username") + "</font></b> "
-                        + comment.getString("text") + "<br>";
-            }
+            comments = new ArrayList<>();
+
+            comments.addAll(InstagramComment.fromJSONArray(commentsJSON));
 
             this.time = json.getLong("created_time");
         } catch (JSONException e) {

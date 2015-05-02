@@ -7,9 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-import com.codepath.instagramclient.models.InstagramPhoto;
-import com.codepath.instagramclient.adapters.InstagramPhotosAdapter;
 import com.codepath.instagramclient.R;
+import com.codepath.instagramclient.adapters.InstagramPhotosAdapter;
+import com.codepath.instagramclient.models.InstagramPhoto;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
