@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.codepath.instagramclient.R;
 import com.codepath.instagramclient.activities.PhotoComments;
+import com.codepath.instagramclient.activities.VideoPlayerActivity;
 import com.codepath.instagramclient.models.InstagramPhoto;
 import com.squareup.picasso.Picasso;
 
@@ -39,6 +40,7 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
             viewHolder.profile = (ImageView) convertView.findViewById(R.id.ivProfile);
             viewHolder.comments = (TextView) convertView.findViewById(R.id.tvViewComments);
             viewHolder.comment = (TextView) convertView.findViewById(R.id.tvComments);
+            viewHolder.video = (ImageView) convertView.findViewById(R.id.ivVideo);
             viewHolder.time = (TextView) convertView.findViewById(R.id.tvTime);
             convertView.setTag(viewHolder);
         } else {
@@ -55,6 +57,20 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         viewHolder.user.setText(photo.userName);
         Picasso.with(getContext()).load(photo.imageUrl).into(viewHolder.image);
         Picasso.with(getContext()).load(photo.profilePic).into(viewHolder.profile);
+
+        if (photo.videoUrl == null) {
+            viewHolder.video.setVisibility(View.INVISIBLE);
+        } else {
+            viewHolder.video.setVisibility(View.VISIBLE);
+            viewHolder.video.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), VideoPlayerActivity.class);
+                    intent.putExtra("videoUrl", photo.videoUrl);
+                    getContext().startActivity(intent);
+                }
+            });
+        }
 
         viewHolder.comments.setText("view all " + photo.numComments + " comments");
         viewHolder.comments.setOnClickListener(new View.OnClickListener() {
@@ -96,5 +112,6 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         TextView like;
         TextView comments;
         TextView comment;
+        ImageView video;
     }
 }
